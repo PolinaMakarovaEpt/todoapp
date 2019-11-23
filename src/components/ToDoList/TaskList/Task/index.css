@@ -1,0 +1,29 @@
+.task {
+    display: block;
+    padding: 0.4rem 2rem 0.5rem 1rem;
+    margin: 0%;
+}
+
+.checked {
+    display: block;
+    padding: 0.4rem 2rem 0.5rem 1rem;
+    margin: 0%;
+    color:rgb(189, 189, 189);
+    text-decoration: line-through;
+}
+
+.delete {
+    position: relative;
+    float: right;
+    padding: 0rem 0.5rem 0.2rem 0.5rem;
+    top: -1.65rem;
+    z-index: 2;
+    font-size: 22px;;
+    color: red;
+
+}
+.delete:hover {
+    background-color: red;
+    color: white;
+
+}

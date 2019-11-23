@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import './todolist.css';
-import AddTask from './AddTask';
-import TasksList from './TasksList';
-import Footer from './Footer';
+import './index.css';
+import AddTask from './NewTaskCreater/index';
+import TasksList from './TaskList/index';
+import Footer from './Footer/index';
 
 class ToDoList extends Component {
 
   constructor() {
     super();
-
 
     this.state = {
       tasks: [],
@@ -29,8 +28,8 @@ class ToDoList extends Component {
     });
   }
 
-  deleteTask(taskId, taskTitle) {
-    const ifDelete = window.confirm('Удалить "' + taskTitle + '"?')
+  deleteTask(taskId) {
+    const ifDelete = window.confirm('Удалить задачу?')
 
     if (ifDelete) {
       const newTasksList = this.state.tasks.filter((t) => {
@@ -51,7 +50,7 @@ class ToDoList extends Component {
         t.checked = task.checked;
         return;
       }
-    })
+    });
 
     this.setState({
       tasks: newTasksList
@@ -77,10 +76,12 @@ class ToDoList extends Component {
   saveTodos = () => {
     const tasks = this.state.tasks;
     localStorage.setItem("storage", JSON.stringify(tasks));
-  };
+  }
+
   componentDidUpdate() {
     this.saveTodos();
   }
+
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem("storage"));
     const tasks = (data && [...data]) || [];
@@ -113,7 +114,6 @@ class ToDoList extends Component {
           onFilterChanged={this.changeFilter.bind(this)}
           onClearCompleted={this.clearCompleted.bind(this)}
         />
-
       </div>
     );
   }

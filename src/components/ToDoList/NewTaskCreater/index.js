@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './index.css';
 
 class AddTask extends Component {
 
@@ -11,7 +11,7 @@ class AddTask extends Component {
     };
   }
 
-  createNewTask(e) {
+  onCreate(e) {
 
     if (e.key === 'Enter') {
       if (this.state.input !== '') {
@@ -23,7 +23,7 @@ class AddTask extends Component {
         };
 
         this.props.onCreate(newTask);
-        this.setState ({
+        this.setState({
           input: ''
         });
       }
@@ -46,11 +46,11 @@ class AddTask extends Component {
       const newTask = {
         title: this.state.input,
         checked: false,
-        id: this.newIndex
+        id: Date.now()
       }
 
       this.props.onClick(newTask);
-      this.setState ({
+      this.setState({
         input: ''
       });
     }
@@ -64,7 +64,7 @@ class AddTask extends Component {
         <input
           value={this.state.input}
           autoFocus placeholder="Введите дело"
-          onKeyPress={this.createNewTask.bind(this)}
+          onKeyPress={this.onCreate.bind(this)}
           onChange={this.handleChange.bind(this)} />
 
         <button id="add" onClick={this.handleClick.bind(this)}>Добавить</button>

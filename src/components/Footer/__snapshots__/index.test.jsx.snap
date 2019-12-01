@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<div
+  className="footer"
+>
+  <div>
+    <span
+      className="active-items"
+    >
+      Активных дел: 
+      1
+    </span>
+  </div>
+  <div
+    className="footer-buttons"
+  >
+    <button
+      className="selected"
+      data-value="all"
+      onClick={[Function]}
+    >
+      Все
+    </button>
+    <button
+      className=""
+      data-value="active"
+      onClick={[Function]}
+    >
+      Активные
+    </button>
+    <button
+      className=""
+      data-value="completed"
+      onClick={[Function]}
+    >
+      Завершенные
+    </button>
+  </div>
+  <div
+    className="delete-completed"
+  >
+    <span
+      onClick={[MockFunction]}
+    >
+      Удалить завершенные
+    </span>
+  </div>
+</div>
+`;

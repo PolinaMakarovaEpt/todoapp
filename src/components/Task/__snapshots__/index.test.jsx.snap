@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<div>
+  <div
+    className="task"
+    onClick={[Function]}
+  />
+  <span
+    className="delete"
+    onClick={[Function]}
+  >
+    x
+  </span>
+   
+  <hr />
+</div>
+`;

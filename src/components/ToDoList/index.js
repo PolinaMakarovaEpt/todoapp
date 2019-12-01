@@ -1,91 +1,69 @@
 import React, { Component } from 'react';
+import { createStore } from 'redux';
 import './index.css';
-import AddTask from './NewTaskCreater/index';
-import TasksList from './TaskList/index';
-import Footer from './Footer/index';
+import AddTask from '../NewTaskCreater/index';
+import TasksList from '../TaskList/index';
+import Footer from '../Footer/index';
+import ToDoListReduser from '../../reducers/ToDoListRedusers';
+import { createNewTask, deleteTask, checkTask, clearCompleted, changeFilter, onLoad } from '../../actions/ToDoListActions';
 
 class ToDoList extends Component {
 
   constructor() {
     super();
 
-    this.state = {
-      tasks: [],
-      filter: "all"
-    }
+    this.store = createStore(ToDoListReduser);
+    let state = this.store.getState();
+
+    this.state = state;
+
+    this.store.subscribe(() => {
+      let state = this.store.getState();
+      this.setState(state);
+    });
   }
 
   createNewTask(task) {
-
-    this.setState({
-      tasks: [...this.state.tasks, task]
-    });
+    this.store.dispatch(createNewTask(task));
   }
 
   handleClick(task) {
-    this.setState({
-      tasks: [...this.state.tasks, task]
-    });
+    this.store.dispatch(createNewTask(task));
   }
 
   deleteTask(taskId) {
-    const ifDelete = window.confirm('Удалить задачу?')
+    const ifDelete = window.confirm('Удалить дело?')
 
     if (ifDelete) {
-      const newTasksList = this.state.tasks.filter((t) => {
-        return t.id !== taskId;
-      });
-
-      this.setState({
-        tasks: newTasksList
-      });
+      this.store.dispatch(deleteTask(taskId))
     }
   }
 
   checkTask(task) {
-    const newTasksList = [...this.state.tasks]
-
-    newTasksList.forEach((t) => {
-      if (t.id === task.id) {
-        t.checked = task.checked;
-        return;
-      }
-    });
-
-    this.setState({
-      tasks: newTasksList
-    });
+    this.store.dispatch(checkTask(task))
   }
 
   changeFilter(filterValue) {
-    this.setState({
-      filter: filterValue
-    });
+    this.store.dispatch(changeFilter(filterValue));
   }
 
   clearCompleted() {
     const ifClear = window.confirm('Удалить все завершенные дела?')
 
     if (ifClear) {
-      this.setState({
-        tasks: this.state.tasks.filter((t) => !t.checked)
-      });
+      this.store.dispatch(clearCompleted());
     }
   }
 
-  saveTodos = () => {
-    const tasks = this.state.tasks;
-    localStorage.setItem("storage", JSON.stringify(tasks));
-  }
-
   componentDidUpdate() {
-    this.saveTodos();
+    localStorage.setItem("storage", JSON.stringify(this.state.tasks));
+
   }
 
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem("storage"));
     const tasks = (data && [...data]) || [];
-    this.setState({ tasks });
+    this.store.dispatch(onLoad(tasks));
   }
 
   render() {

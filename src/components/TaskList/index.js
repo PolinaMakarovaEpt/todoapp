@@ -1,5 +1,5 @@
 import React from 'react';
-import Task from './Task/index';
+import Task from '../Task/index';
 
 function TasksList(props) {
 
